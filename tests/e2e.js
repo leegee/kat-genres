@@ -1,4 +1,5 @@
 /** e2e.t — end-to-end test */
+/* globals describe, it */
 
 "use strict";
 var chai     = require('chai'),
@@ -25,9 +26,11 @@ describe('Import from Kat', function (){
     it( 'downloads', function (done){
         var importer = new Importer();
         should.equal( typeof importer.download, 'function', 'method');
-        var path = importer.download();
-        path.should.equal('foo');
-        done();
+        var after = function () {
+            path.should.equal('foo');
+            done();
+        };
+        importer.download( after );
     });
 });
 
