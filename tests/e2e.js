@@ -9,7 +9,7 @@ var chai     = require('chai'),
     Log4js   = require('Log4js'),
     Importer = require('../lib/Importer.js'),
 
-    FULL_TEST = false
+    FULL_TEST = true
 ;
 
 Log4js.replaceConsole();
@@ -31,7 +31,7 @@ describe('Import from Kat', function (){
             var importer = new Importer();
             should.equal( typeof importer.download, 'function', 'method');
             var after = function () {
-                fs.existsSync(importer.options.cachePath).should.be.true;
+                fs.existsSync(importer.options.outputCsv).should.be.true;
                 done();
             };
             importer.download( 'http://lee/dailydump.txt.gz', after );
@@ -41,7 +41,7 @@ describe('Import from Kat', function (){
     it('imports to Redis', function (){
         var importer = new Importer();
         it('has archive', function (){
-            fs.existsSync(importer.options.cachePath).should.be.true;
+            fs.existsSync(importer.options.outputCsv).should.be.true
         });
         should.equal( typeof importer.repopulate, 'function', 'method');
         importer.repopulate();
