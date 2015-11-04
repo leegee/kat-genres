@@ -6,15 +6,36 @@ var chai     = require('chai'),
     expect   = chai.expect,
     should   = require('chai').should(),
     fs       = require('fs'),
-    Log4js   = require('Log4js'),
+    log4js   = require('Log4js'),
     Importer = require('../lib/Importer.js'),
     redis    = require('then-redis'),
 
     FULL_TEST = false
 ;
 
-Log4js.replaceConsole();
-// var logger = Log4js.getLogger();
+var config = {
+    appenders: [{
+        type: "console",
+        layout: {
+            type    : "pattern",
+            pattern : "%[%p (%x{ln}) -%]\t%m",
+            tokens: {
+                ln : function() {
+                    // The caller:
+                    return (new Error).stack.split("\n")[11]
+                    // Just the filename, line:
+                    .replace(/^\s+at\s+\/(\w+\/)+(.+?):(\d+).*$/, function (){
+                        return arguments[2] +' line '+arguments[3]
+                    });
+                }
+            }
+        }
+    }]
+};
+
+log4js.configure(config, {});
+log4js.replaceConsole();
+// var logger = log4js.getLogger();
 // logger.setLevel('TRACE');
 
 var db = redis.createClient();
@@ -50,6 +71,7 @@ describe('Import from Kat', function (){
     }
 
     it('imports to Redis', function (done){
+        this.timeout( 20000 );
         var importer = new Importer();
         it('has archive', function (){
             fs.existsSync(importer.options.outputCsv).should.be.true
