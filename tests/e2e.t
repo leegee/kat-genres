@@ -7,7 +7,7 @@ var chai     = require('chai'),
     fs       = require('fs'),
     path     = require('path'),
     Log4js   = require('Log4js'),
-    Import   = require('../lib/Importer.js')
+    Importer   = require('../lib/Importer.js')
 ;
 
 Log4js.replaceConsole();

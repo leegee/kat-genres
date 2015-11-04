@@ -12,6 +12,12 @@
   "author": "Lee G",
   "license": "ISC",
   "dependencies": {
-    "merge": "^1.2.0"
+    "merge": "^1.2.0",
+    "request": "^2.65.0"
+  },
+  "devDependencies": {
+    "chai": "^3.4.0",
+    "log4js": "^0.6.27",
+    "should": "^7.1.1"
   }
 }
