@@ -1,0 +1,17 @@
+{
+  "name": "kat-genres",
+  "version": "1.0.0",
+  "description": "Add genres to KAT",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha tests"
+  },
+  "author": "Lee G",
+  "license": "ISC",
+  "dependencies": {
+    "merge": "^1.2.0"
+  }
+}
