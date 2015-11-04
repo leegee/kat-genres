@@ -9,11 +9,11 @@
   "scripts": {
     "test": "mocha tests"
   },
-  "author": "Lee G",
+  "author": "Lee Goddard",
   "license": "ISC",
   "dependencies": {
-    "merge": "^1.2.0",
-    "request": "^2.65.0"
+    "http-request": "^0.7.0",
+    "merge": "^1.2.0"
   },
   "devDependencies": {
     "chai": "^3.4.0",

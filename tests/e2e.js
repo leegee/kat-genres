@@ -6,7 +6,6 @@ var chai     = require('chai'),
     expect   = chai.expect,
     should   = require('chai').should(),
     fs       = require('fs'),
-    path     = require('path'),
     Log4js   = require('Log4js'),
     Importer   = require('../lib/Importer.js')
 ;
@@ -23,14 +22,16 @@ describe('Import from Kat', function (){
             should.equal( importer instanceof Importer, "object", "Construted class" );
         });
     });
+
     it( 'downloads', function (done){
+        this.timeout( 20000 ); // circa 670 MB
         var importer = new Importer();
         should.equal( typeof importer.download, 'function', 'method');
         var after = function () {
-            path.should.equal('foo');
+            fs.existsSync(importer.options.cachePath).should.be.true;
             done();
         };
-        importer.download( after );
+        importer.download( 'http://lee/dailydump.txt.gz', after );
     });
 });
 
