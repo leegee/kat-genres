@@ -7,7 +7,9 @@ var chai     = require('chai'),
     should   = require('chai').should(),
     fs       = require('fs'),
     Log4js   = require('Log4js'),
-    Importer   = require('../lib/Importer.js')
+    Importer = require('../lib/Importer.js'),
+
+    FULL_TEST = false
 ;
 
 Log4js.replaceConsole();
@@ -23,15 +25,28 @@ describe('Import from Kat', function (){
         });
     });
 
-    it( 'downloads', function (done){
-        this.timeout( 20000 ); // circa 670 MB
+    if (FULL_TEST){
+        it( 'downloads', function (done){
+            this.timeout( 20000 ); // circa 670 MB
+            var importer = new Importer();
+            should.equal( typeof importer.download, 'function', 'method');
+            var after = function () {
+                fs.existsSync(importer.options.cachePath).should.be.true;
+                done();
+            };
+            importer.download( 'http://lee/dailydump.txt.gz', after );
+        });
+    }
+
+    it('imports to Redis', function (){
         var importer = new Importer();
-        should.equal( typeof importer.download, 'function', 'method');
-        var after = function () {
+        it('has archive', function (){
             fs.existsSync(importer.options.cachePath).should.be.true;
-            done();
-        };
-        importer.download( 'http://lee/dailydump.txt.gz', after );
-    });
+        });
+        should.equal( typeof importer.repopulate, 'function', 'method');
+        importer.repopulate();
+    })
+
+
 });
 
