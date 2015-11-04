@@ -8,13 +8,22 @@ var chai     = require('chai'),
     fs       = require('fs'),
     Log4js   = require('Log4js'),
     Importer = require('../lib/Importer.js'),
+    redis    = require('then-redis'),
 
-    FULL_TEST = true
+    FULL_TEST = false
 ;
 
 Log4js.replaceConsole();
 // var logger = Log4js.getLogger();
 // logger.setLevel('TRACE');
+
+var db = redis.createClient();
+
+before(function () {
+  db.flushdb().then(function (reply) {
+    expect(reply).eql('OK');
+  });
+});
 
 describe('Import from Kat', function (){
     it('should load', function (){
@@ -30,21 +39,23 @@ describe('Import from Kat', function (){
             this.timeout( 20000 ); // circa 670 MB
             var importer = new Importer();
             should.equal( typeof importer.download, 'function', 'method');
-            var after = function () {
-                fs.existsSync(importer.options.outputCsv).should.be.true;
-                done();
-            };
-            importer.download( 'http://lee/dailydump.txt.gz', after );
+            importer.download( 'http://lee/dailydump.txt.gz', function () {
+                it('has size', function (){
+                    var stats = fs.statSync( importer.options.outputCsv );
+                    stats.size.should.be.gt(0);
+                    done();
+                });
+            });
         });
     }
 
-    it('imports to Redis', function (){
+    it('imports to Redis', function (done){
         var importer = new Importer();
         it('has archive', function (){
             fs.existsSync(importer.options.outputCsv).should.be.true
         });
         should.equal( typeof importer.repopulate, 'function', 'method');
-        importer.repopulate();
+        importer.repopulate( done );
     })
 
 
