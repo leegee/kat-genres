@@ -13,19 +13,21 @@ var chai     = require('chai'),
     FULL_TEST = false
 ;
 
+var $depth = 11;
 var config = {
     appenders: [{
         type: "console",
         layout: {
             type    : "pattern",
-            pattern : "%[%p (%x{ln}) -%]\t%m",
+            pattern : "%[%p {%x{ln}} -%]\t%m",
             tokens: {
                 ln : function() {
                     // The caller:
-                    return (new Error).stack.split("\n")[11]
+                    return (new Error).stack.split("\n")[$depth]
                     // Just the filename, line:
-                    .replace(/^\s+at\s+\/(\w+\/)+(.+?):(\d+).*$/, function (){
-                        return arguments[2] +' line '+arguments[3]
+                    .replace(/^\s+at\s+(\S+)\s\((.+?)([^\/]+):(\d+):\d+\)$/, function (){
+                        return arguments[1] +' '+ arguments[3] +' line '+ arguments[4];
+                        // return arguments[0] +' '+ arguments[2] +' line '+arguments[3]
                     });
                 }
             }
