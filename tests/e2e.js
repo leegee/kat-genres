@@ -35,7 +35,7 @@ var config = {
     }]
 };
 
-log4js.configure(config, {});
+// log4js.configure(config, {});
 log4js.replaceConsole();
 // var logger = log4js.getLogger();
 // logger.setLevel('TRACE');
@@ -45,6 +45,7 @@ var db = redis.createClient();
 before(function () {
   db.flushdb().then(function (reply) {
     expect(reply).eql('OK');
+    console.debug('Wiped DB');
   });
 });
 
@@ -64,7 +65,7 @@ describe('Import from Kat', function (){
             should.equal( typeof importer.download, 'function', 'method');
             importer.download( 'http://lee/dailydump.txt.gz', function () {
                 it('has size', function (){
-                    var stats = fs.statSync( importer.options.outputCsv );
+                    var stats = fs.statSync( importer.options.katCsv );
                     stats.size.should.be.gt(0);
                     done();
                 });
@@ -73,13 +74,17 @@ describe('Import from Kat', function (){
     }
 
     it('imports to Redis', function (done){
-        this.timeout( 20000 );
-        var importer = new Importer();
+        this.timeout( 1000 * 60 * 3 );
+        var importer = new Importer({
+            katCsv: 'tests/fixtures/20_rows.csv'
+        });
         it('has archive', function (){
-            fs.existsSync(importer.options.outputCsv).should.be.true
+            fs.existsSync(importer.options.katCsv).should.be.true
         });
         should.equal( typeof importer.repopulate, 'function', 'method');
-        importer.repopulate( done );
+        importer.repopulate( function (){
+            done();
+        });
     })
 
 
