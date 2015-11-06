@@ -8,7 +8,8 @@ var chai     = require('chai'),
     fs       = require('fs'),
     log4js   = require('Log4js'),
     Importer = require('../lib/Importer.js'),
-    redis    = require('then-redis'),
+    Torrent  = require('../lib/Torrent.js'),
+    sqlite3  = require('sqlite3').verbose(),
 
     FULL_TEST = false
 ;
@@ -40,13 +41,14 @@ log4js.replaceConsole();
 // var logger = log4js.getLogger();
 // logger.setLevel('TRACE');
 
-var db = redis.createClient();
+var db, sthInsertTorrent;
 
 before(function () {
-  db.flushdb().then(function (reply) {
-    expect(reply).eql('OK');
-    console.debug('Wiped DB');
-  });
+    db = new sqlite3.Database(':memory:');
+    db.serialize(function() {
+        Torrent.createSchema(db);
+        sthInsertTorrent = Torrent.sthInsertTorrent(db);
+    });
 });
 
 describe('Import from Kat', function (){
@@ -73,20 +75,16 @@ describe('Import from Kat', function (){
         });
     }
 
-    it('imports to Redis', function (done){
+    it('imports to DB', function (done){
         this.timeout( 1000 * 60 * 3 );
         var importer = new Importer({
-            katCsv: 'tests/fixtures/20_rows.csv'
+            katCsv: 'tests/fixtures/1000_rows.csv'
         });
         it('has archive', function (){
             fs.existsSync(importer.options.katCsv).should.be.true
         });
         should.equal( typeof importer.repopulate, 'function', 'method');
-        importer.repopulate( function (){
-            done();
-        });
+        importer.repopulate( sthInsertTorrent, done );
     })
-
-
 });
 
