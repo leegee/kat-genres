@@ -1,6 +1,6 @@
 # KAT Genres
 
-Work in progess.
+A work in progess to improve KAT genres for TV shows and films.
 
     npm install --dev
     npm test
