@@ -21,8 +21,14 @@ describe('Dbpedia class', function (){
     });
 
     it( 'get functions', function (done) {
-        var agent = new Dbpedia();
-        agent.get('NCIS', done);
+        new Dbpedia().get('NCIS', function (genres){
+            should.equal(typeof genres, 'object', 'genres list');
+            genres.should.be.instanceof(Array, 'genres list');
+            genres.should.have.length(2);
+            genres.should.include('Drama');
+            genres.should.include('Action_(fiction)');
+            done();
+        });
     });
 });
 
