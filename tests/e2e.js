@@ -76,7 +76,6 @@ describe('Import from Kat', function (){
     }
 
     it('imports to DB', function (done){
-        this.timeout( 1000 * 60 * 3 );
         var importer = new Importer({
             katCsv: 'tests/fixtures/1000_rows.csv'
         });
@@ -84,7 +83,39 @@ describe('Import from Kat', function (){
             fs.existsSync(importer.options.katCsv).should.be.true();
         });
         should.equal( typeof importer.repopulate, 'function', 'method');
-        importer.repopulate( sthInsertTorrent, done );
+        importer.repopulate( Torrent.sthInsertTorrent(db), done );
+    });
+
+    it('imports to DB', function (done){
+        before( function (){
+            db.run('TRUNCATE torrents');
+        });
+        var importer = new Importer({
+            katCsv: 'tests/fixtures/20_rows.csv'
+        });
+        it('has archive', function (){
+            fs.existsSync(importer.options.katCsv).should.be.true();
+        });
+        should.equal( typeof importer.repopulate, 'function', 'method');
+        importer.repopulate( Torrent.sthInsertTorrent(db), done );
+    });
+
+    it('imports to DB', function (done){
+        this.timeout( 20000 ); // circa 670 MB
+        before( function (){
+            db.run('TRUNCATE torrents');
+        });
+        var importer = new Importer({
+            katCsv: 'tests/fixtures/1000_rows.csv',
+            db: db
+        });
+        it('has archive', function (){
+            fs.existsSync(importer.options.katCsv).should.be.true();
+        });
+        should.equal( typeof importer.repopulate, 'function', 'method');
+        importer.repopulate( Torrent.sthInsertTorrent(db), function (){
+            importer.addGenres( done );
+        });
     });
 });
 
