@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha tests"
+    "test": "grunt test"
   },
   "author": "Lee Goddard",
   "license": "ISC",

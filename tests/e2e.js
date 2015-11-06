@@ -1,5 +1,5 @@
 /** e2e.t — end-to-end test */
-/* globals describe, it */
+/* globals describe, it, before, after */
 
 "use strict";
 var chai     = require('chai'),
@@ -24,7 +24,7 @@ var config = {
             tokens: {
                 ln : function() {
                     // The caller:
-                    return (new Error).stack.split("\n")[$depth]
+                    return (new Error()).stack.split("\n")[$depth]
                     // Just the filename, line:
                     .replace(/^\s+at\s+(\S+)\s\((.+?)([^\/]+):(\d+):\d+\)$/, function (){
                         return arguments[1] +' '+ arguments[3] +' line '+ arguments[4];
@@ -81,10 +81,10 @@ describe('Import from Kat', function (){
             katCsv: 'tests/fixtures/1000_rows.csv'
         });
         it('has archive', function (){
-            fs.existsSync(importer.options.katCsv).should.be.true
+            fs.existsSync(importer.options.katCsv).should.be.true();
         });
         should.equal( typeof importer.repopulate, 'function', 'method');
         importer.repopulate( sthInsertTorrent, done );
-    })
+    });
 });
 

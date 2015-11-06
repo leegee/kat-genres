@@ -2,7 +2,7 @@
 
 Work in progess.
 
-    npm install
+    npm install --dev
     npm test
 
 See https://kat.cr/api/
