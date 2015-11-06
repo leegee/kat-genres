@@ -6,8 +6,7 @@ var chai     = require('chai'),
     expect   = chai.expect,
     should   = require('chai').should(),
     log4js   = require('Log4js'),
-    Omdb     = require('../lib/Omdb.js'),
-    sqlite3  = require('sqlite3').verbose()
+    Omdb     = require('../lib/Omdb.js')
 ;
 
 log4js.replaceConsole();
