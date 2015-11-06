@@ -20,8 +20,8 @@ describe('Dbpedia class', function (){
         should.equal( typeof agent.get, "function", "has method 'get'" );
     });
 
-    it( 'get functions', function (done) {
-        new Dbpedia().get('NCIS', function (genres){
+    it( 'gets generes for TV_Show', function (done) {
+        new Dbpedia().get('NCIS', 'TV', function (genres){
             should.equal(typeof genres, 'object', 'genres list');
             genres.should.be.instanceof(Array, 'genres list');
             genres.should.have.length(2);
@@ -30,5 +30,16 @@ describe('Dbpedia class', function (){
             done();
         });
     });
+
+    // it( 'gets generes for Movies', function (done) {
+    //     new Dbpedia().get('Jaws', 'Movies', function (genres){
+    //         should.equal(typeof genres, 'object', 'genres list');
+    //         genres.should.be.instanceof(Array, 'genres list');
+    //         genres.should.have.length(2);
+    //         genres.should.include('Drama');
+    //         genres.should.include('Action_(fiction)');
+    //         done();
+    //     });
+    // });
 });
 
