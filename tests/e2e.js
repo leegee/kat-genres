@@ -51,13 +51,11 @@ before(function () {
     });
 });
 
-describe('Import from Kat', function (){
-    it('should load', function (){
+describe('KAT import', function (){
+    it('should load Importer', function (){
         var importer = new Importer();
-        it( 'constructs', function () {
-            should.equal( typeof importer, "object", "Construted" );
-            should.equal( importer instanceof Importer, "object", "Construted class" );
-        });
+        should.equal( typeof importer, "object", "Construted" );
+        importer.should.be.instanceof(Importer, "Construted class" );
     });
 
     if (FULL_TEST){
