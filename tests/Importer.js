@@ -41,27 +41,26 @@ log4js.replaceConsole();
 // var logger = log4js.getLogger();
 // logger.setLevel('TRACE');
 
-var db, sthInsertTorrent;
+var db;
 
 before(function () {
     db = new sqlite3.Database(':memory:');
     db.serialize(function() {
         Torrent.createSchema(db);
-        sthInsertTorrent = Torrent.sthInsertTorrent(db);
     });
 });
 
 describe('KAT import', function (){
     it('should load Importer', function (){
-        var importer = new Importer();
+        var importer = new Importer({db:db});
         should.equal( typeof importer, "object", "Construted" );
         importer.should.be.instanceof(Importer, "Construted class" );
     });
 
     if (FULL_TEST){
         it( 'downloads', function (done){
-            this.timeout( 20000 ); // circa 670 MB
-            var importer = new Importer();
+            this.timeout( 10000 );
+            var importer = new Importer({db:db})
             should.equal( typeof importer.download, 'function', 'method');
             importer.download( 'http://lee/dailydump.txt.gz', function () {
                 it('has size', function (){
@@ -74,32 +73,22 @@ describe('KAT import', function (){
     }
 
     it('imports to DB', function (done){
-        var importer = new Importer({
-            katCsv: 'tests/fixtures/1000_rows.csv'
-        });
-        it('has archive', function (){
-            fs.existsSync(importer.options.katCsv).should.be.true();
-        });
-        should.equal( typeof importer.repopulate, 'function', 'method');
-        importer.repopulate( Torrent.sthInsertTorrent(db), done );
-    });
-
-    it('imports to DB', function (done){
         before( function (){
             db.run('TRUNCATE torrents');
         });
         var importer = new Importer({
-            katCsv: 'tests/fixtures/20_rows.csv'
+            katCsv: 'tests/fixtures/20_rows.csv',
+            db: db
         });
         it('has archive', function (){
             fs.existsSync(importer.options.katCsv).should.be.true();
         });
         should.equal( typeof importer.repopulate, 'function', 'method');
-        importer.repopulate( Torrent.sthInsertTorrent(db), done );
+        importer.repopulate( done );
     });
 
-    it('imports to DB', function (done){
-        this.timeout( 20000 ); // circa 670 MB
+    it('imports and adds genres', function (done){
+        this.timeout( 20000 );
         before( function (){
             db.run('TRUNCATE torrents');
         });
@@ -111,8 +100,8 @@ describe('KAT import', function (){
             fs.existsSync(importer.options.katCsv).should.be.true();
         });
         should.equal( typeof importer.repopulate, 'function', 'method');
-        importer.repopulate( Torrent.sthInsertTorrent(db), function (){
-            importer.addGenres( done );
+        importer.repopulate( function (){
+            Torrent.toAlladdGenres( db, done );
         });
     });
 });
