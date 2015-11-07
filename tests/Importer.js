@@ -101,6 +101,7 @@ describe('KAT import', function (){
         });
         should.equal( typeof importer.repopulate, 'function', 'method');
         importer.repopulate( function (){
+            console.debug('Now toAlladdGenres');
             Torrent.toAlladdGenres( db, done );
         });
     });
