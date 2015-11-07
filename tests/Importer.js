@@ -60,7 +60,7 @@ describe('KAT import', function (){
     if (FULL_TEST){
         it( 'downloads', function (done){
             this.timeout( 10000 );
-            var importer = new Importer({db:db})
+            var importer = new Importer({db:db});
             should.equal( typeof importer.download, 'function', 'method');
             importer.download( 'http://lee/dailydump.txt.gz', function () {
                 it('has size', function (){
@@ -72,20 +72,20 @@ describe('KAT import', function (){
         });
     }
 
-    it('imports to DB', function (done){
-        before( function (){
-            db.run('TRUNCATE torrents');
-        });
-        var importer = new Importer({
-            katCsv: 'tests/fixtures/20_rows.csv',
-            db: db
-        });
-        it('has archive', function (){
-            fs.existsSync(importer.options.katCsv).should.be.true();
-        });
-        should.equal( typeof importer.repopulate, 'function', 'method');
-        importer.repopulate( done );
-    });
+    // it('imports to DB', function (done){
+    //     before( function (){
+    //         db.run('TRUNCATE torrents');
+    //     });
+    //     var importer = new Importer({
+    //         katCsv: 'tests/fixtures/20_rows.csv',
+    //         db: db
+    //     });
+    //     it('has archive', function (){
+    //         fs.existsSync(importer.options.katCsv).should.be.true();
+    //     });
+    //     should.equal( typeof importer.loadTorrentsFromCSV, 'function', 'method');
+    //     importer.loadTorrentsFromCSV( done );
+    // });
 
     it('imports and adds genres', function (done){
         this.timeout( 20000 );
@@ -93,15 +93,14 @@ describe('KAT import', function (){
             db.run('TRUNCATE torrents');
         });
         var importer = new Importer({
-            katCsv: 'tests/fixtures/1000_rows.csv',
+            katCsv: 'tests/fixtures/5_rows.csv',
             db: db
         });
         it('has archive', function (){
             fs.existsSync(importer.options.katCsv).should.be.true();
         });
-        should.equal( typeof importer.repopulate, 'function', 'method');
-        importer.repopulate( function (){
-            console.debug('Now toAlladdGenres');
+        should.equal( typeof importer.loadTorrentsFromCSV, 'function', 'method');
+        importer.loadTorrentsFromCSV( function (){
             Torrent.toAlladdGenres( db, done );
         });
     });
