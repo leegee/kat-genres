@@ -33,7 +33,7 @@ describe('Torrent', function (){
         torrent.katFields.torrent_category = 'TV';
         expect( torrent.setTitleFromHTML(
             '<li><a href="/ncis-tv2604/">View all <strong>NCIS</strong> episodes</a></li>'
-        )).to.be.true;
+        )).to.eql(true);
     });
 
     it('should get torrent_info_url', function (done){
