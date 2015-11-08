@@ -101,7 +101,7 @@ describe('KAT import', function (){
         });
         should.equal( typeof importer.loadTorrentsFromCSV, 'function', 'method');
         importer.loadTorrentsFromCSV( function (){
-            Torrent.toAlladdGenres( db, done );
+            Torrent.showAll( db, done );
         });
     });
 });

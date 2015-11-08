@@ -39,10 +39,11 @@ describe('Torrent', function (){
     it('should get torrent_info_url', function (done){
         this.timeout( 20000 );
         var torrent = new Torrent({db:db}, []);
+        torrent.id = 'TestID';
         torrent.katFields.torrent_category = 'TV';
         torrent.katFields.torrent_info_url = 'https://kat.cr/ncis-s13e07-hdtv-x264-lol-ettv-t11522935.html';
-        torrent._getInfo( function (){
-            done();
+        torrent.save( function (){
+            Torrent.showAll( torrent.options.db, done );
         });
     });
 });

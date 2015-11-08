@@ -28,6 +28,7 @@
     "grunt-mocha-test": "^0.12.7",
     "log4js": "leegee/log4js-node",
     "mocha": "^2.3.3",
-    "should": "^7.1.1"
+    "should": "^7.1.1",
+    "sinon": "^1.17.2"
   }
 }
