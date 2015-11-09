@@ -20,7 +20,8 @@ describe('Omdb class', function (){
     });
 
     it( 'gets generes for Movies', function (done) {
-        new Omdb().get('Jaws', function (genres){
+        new Omdb().get('Jaws', function (err, genres){
+            should.equal(err, null, 'No error');
             should.equal(typeof genres, 'object', 'genres list');
             genres.should.be.instanceof(Array, 'genres list');
             genres.should.have.length(3);

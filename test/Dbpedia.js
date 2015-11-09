@@ -20,7 +20,8 @@ describe('Dbpedia class', function (){
     });
 
     it( 'gets generes for TV', function (done) {
-        new Dbpedia().get('NCIS', function (genres){
+        new Dbpedia().get('NCIS', function (err, genres){
+            should.equal(err, null, 'No error');
             should.equal(typeof genres, 'object', 'genres list');
             genres.should.be.instanceof(Array, 'genres list');
             genres.should.have.length(2);
