@@ -7,7 +7,7 @@ module.exports = function(grunt) {
             options: {
                 node: true
             },
-            files: ['lib/**/*.js', 'tests/**/*.js']
+            files: ['lib/**/*.js', 'test/**/*.js']
         },
 
         mochaTest: {
@@ -15,7 +15,7 @@ module.exports = function(grunt) {
                 options: {
                     reporter: 'spec',
                 },
-                src: ['tests/**/*.js']
+                src: ['test/**/*.js']
             }
         }
 

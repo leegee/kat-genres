@@ -6,6 +6,7 @@ var chai     = require('chai'),
     expect   = chai.expect,
     should   = require('chai').should(),
     fs       = require('fs'),
+    path     = require('path'),
     log4js   = require('Log4js'),
     Importer = require('../lib/Importer.js'),
     Torrent  = require('../lib/Torrent.js'),
@@ -75,7 +76,7 @@ describe('KAT import', function (){
     //         db.run('TRUNCATE torrents');
     //     });
     //     var importer = new Importer({
-    //         katCsv: 'tests/fixtures/20_rows.csv',
+    //         katCsv: __dirname+'/fixtures/20_rows.csv',
     //         db: db
     //     });
     //     it('has archive', function (){
@@ -91,7 +92,7 @@ describe('KAT import', function (){
             db.run('TRUNCATE torrents');
         });
         var importer = new Importer({
-            katCsv: 'tests/fixtures/5_rows.csv',
+            katCsv: __dirname+'/fixtures/5_rows.csv',
             db: db
         });
         it('has archive', function (){

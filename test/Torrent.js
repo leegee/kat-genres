@@ -1,4 +1,4 @@
-/** tests/Torrent.js */
+/** test Torrent.js */
 /* globals describe, it, before, after */
 
 "use strict";
