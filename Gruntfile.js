@@ -5,7 +5,8 @@ module.exports = function(grunt) {
 
         jshint: {
             options: {
-                node: true
+                node: true,
+                esnext: true
             },
             files: ['lib/**/*.js', 'test/**/*.js']
         },
