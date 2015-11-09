@@ -38,8 +38,6 @@ var config = {
 
 // log4js.configure(config, {});
 log4js.replaceConsole();
-// var logger = log4js.getLogger();
-// logger.setLevel('TRACE');
 
 var db;
 
