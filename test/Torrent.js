@@ -28,22 +28,22 @@ describe('Torrent', function (){
         torrent.should.be.instanceof(Torrent, "Construted class" );
     });
 
-    it('should get title from KAT HTML', function () {
-        var torrent = new Torrent({db:db}, []);
-        torrent.katFields.torrent_category = 'TV';
-        expect( torrent.setTitleFromHTML(
-            '<li><a href="/ncis-tv2604/">View all <strong>NCIS</strong> episodes</a></li>'
-        )).to.eql(true);
-    });
+    // it('should get title from KAT HTML', function () {
+    //     var torrent = new Torrent({db:db}, []);
+    //     torrent.katFields.torrent_category = 'TV';
+    //     expect( torrent.setTitleFromHTML(
+    //         '<li><a href="/ncis-tv2604/">View all <strong>NCIS</strong> episodes</a></li>'
+    //     )).to.eql(true);
+    // });
 
     it('should get torrent_info_url', function (done){
         this.timeout( 20000 );
         var torrent = new Torrent({db:db}, []);
         torrent.id = 'TestID';
+        torrent.katFields.torrent_name = 'NCIS S01E01';
         torrent.katFields.torrent_category = 'TV';
         torrent.katFields.torrent_info_url = 'https://kat.cr/ncis-s13e07-hdtv-x264-lol-ettv-t11522935.html';
         torrent.save( function (){
-            // Torrent.showAll( torrent.options.db, done );
             done();
         });
     });
