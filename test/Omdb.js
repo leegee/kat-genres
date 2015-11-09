@@ -3,7 +3,6 @@
 
 "use strict";
 var chai     = require('chai'),
-    expect   = chai.expect,
     should   = require('chai').should(),
     log4js   = require('Log4js'),
     Omdb     = require('../lib/Omdb.js')
