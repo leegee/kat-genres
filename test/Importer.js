@@ -71,21 +71,6 @@ describe('KAT import', function (){
         });
     }
 
-    // it('imports to DB', function (done){
-    //     before( function (){
-    //         db.run('TRUNCATE torrents');
-    //     });
-    //     var importer = new Importer({
-    //         katCsv: __dirname+'/fixtures/20_rows.csv',
-    //         db: db
-    //     });
-    //     it('has archive', function (){
-    //         fs.existsSync(importer.options.katCsv).should.be.true();
-    //     });
-    //     should.equal( typeof importer.loadTorrentsFromCSV, 'function', 'method');
-    //     importer.loadTorrentsFromCSV( done );
-    // });
-
     it('imports and adds genres', function (done){
         this.timeout( 20000 );
         before( function (){
@@ -99,9 +84,23 @@ describe('KAT import', function (){
             fs.existsSync(importer.options.katCsv).should.be.true();
         });
         should.equal( typeof importer.loadTorrentsFromCSV, 'function', 'method');
-        importer.loadTorrentsFromCSV( function (){
-            Torrent.showAll( db, done );
+        importer.loadTorrentsFromCSV( done );
+    });
+
+    it('imports and adds genres on 1,000', function (done){
+        this.timeout( 20000 );
+        before( function (){
+            db.run('TRUNCATE torrents');
         });
+        var importer = new Importer({
+            katCsv: __dirname+'/fixtures/1000_rows.csv',
+            db: db
+        });
+        it('has archive', function (){
+            fs.existsSync(importer.options.katCsv).should.be.true();
+        });
+        should.equal( typeof importer.loadTorrentsFromCSV, 'function', 'method');
+        importer.loadTorrentsFromCSV( done );
     });
 });
 
