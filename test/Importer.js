@@ -1,4 +1,4 @@
-/** e2e.t — end-to-end test */
+/** Test Importer.js */
 /* globals describe, it, before, after */
 
 "use strict";
@@ -87,20 +87,20 @@ describe('KAT import', function (){
         importer.loadTorrentsFromCSV( done );
     });
 
-    it('imports and adds genres on 1,000', function (done){
-        this.timeout( 20000 );
-        before( function (){
-            db.run('TRUNCATE torrents');
-        });
-        var importer = new Importer({
-            katCsv: __dirname+'/fixtures/1000_rows.csv',
-            db: db
-        });
-        it('has archive', function (){
-            fs.existsSync(importer.options.katCsv).should.be.true();
-        });
-        should.equal( typeof importer.loadTorrentsFromCSV, 'function', 'method');
-        importer.loadTorrentsFromCSV( done );
-    });
+    // it('imports and adds genres on 1,000', function (done){
+    //     this.timeout( 20000 );
+    //     before( function (){
+    //         db.run('TRUNCATE torrents');
+    //     });
+    //     var importer = new Importer({
+    //         katCsv: __dirname+'/fixtures/1000_rows.csv',
+    //         db: db
+    //     });
+    //     it('has archive', function (){
+    //         fs.existsSync(importer.options.katCsv).should.be.true();
+    //     });
+    //     should.equal( typeof importer.loadTorrentsFromCSV, 'function', 'method');
+    //     importer.loadTorrentsFromCSV( done );
+    // });
 });
 
