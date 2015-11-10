@@ -84,7 +84,10 @@ describe('KAT import', function (){
             fs.existsSync(importer.options.katCsv).should.be.true();
         });
         should.equal( typeof importer.loadTorrentsFromCSV, 'function', 'method');
-        importer.loadTorrentsFromCSV( done );
+        importer.loadTorrentsFromCSV( function (){
+            Torrent.showAll( db );
+            done();
+        });
     });
 
     // it('imports and adds genres on 1,000', function (done){
