@@ -19,12 +19,14 @@ describe('Dbpedia class', function (){
     });
 
     it( 'gets generes for TV', function (done) {
-        new Dbpedia().get('NCIS', function (err, genres){
-            should.equal(err, null, 'No error');
+        new Dbpedia().get('NCIS').then( function (genres){
             should.equal(typeof genres, 'object', 'genres list');
             genres.should.be.instanceof(Array, 'genres list');
             genres.should.have.length(2);
             genres.should.include('Drama', 'Action_(fiction)');
+            done();
+        }).catch( function (e) {
+            console.error(e);
             done();
         });
     });

@@ -19,23 +19,26 @@ describe('Omdb class', function (){
     });
 
     it( 'gets generes for Movies, no yaer', function (done) {
-        new Omdb().get('Jaws', null, function (err, genres){
-            should.equal(err, null, 'No error');
+        new Omdb().get('Jaws', null).then( function (err, genres){
             should.equal(typeof genres, 'object', 'genres list');
             genres.should.be.instanceof(Array, 'genres list');
             genres.should.have.length(3);
             genres.should.include('Thriller','Drama','Adventure');
             done();
+        }).catch( function (e) {
+            done();
         });
     });
 
     it( 'gets generes for Movies', function (done) {
-        new Omdb().get('Star Wars', 1977, function (err, genres){
+        new Omdb().get('Star Wars', 1977).then( function (err, genres){
             should.equal(err, null, 'No error');
             should.equal(typeof genres, 'object', 'genres list');
             genres.should.be.instanceof(Array, 'genres list');
             genres.should.have.length(3);
             genres.should.include('Action','Fantasy','Adventure');
+            done();
+        }).catch( function (e) {
             done();
         });
     });
