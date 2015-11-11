@@ -28,7 +28,7 @@ client.indices.delete({
                 }
             }
         }
-    })
+    });
 }).then( function (err, resp, respcode) {
     console.log(err, resp, respcode);
 });

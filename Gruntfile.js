@@ -8,7 +8,7 @@ module.exports = function(grunt) {
                 node: true,
                 esnext: true
             },
-            files: ['lib/**/*.js', 'test/**/*.js']
+            files: ['lib/**/*.js', 'test/**/*.js', 'bin/**/*.js']
         },
 
         mochaTest: {

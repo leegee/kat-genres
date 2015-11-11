@@ -9,7 +9,7 @@ var mach = require('mach'),
 app.use(mach.logger);
 
 app.get('/all', function (conn) {
-    var content = conn.response.content = new Stream;
+    var content = conn.response.content = new Stream();
     db.all("SELECT * FROM torrents", function(err, rows) {
         if (err){
             content.write( JSON.stringify({error:err}) );

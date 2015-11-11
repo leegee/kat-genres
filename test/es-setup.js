@@ -15,7 +15,7 @@ before( function () {
         host: 'localhost:'+config.elasticsearch.port,
         log: 'trace',
         apiVersion: "2.1"
-    })
+    });
 });
 
 describe('ES setup', function (){
@@ -33,7 +33,7 @@ describe('ES setup', function (){
             done();
         }).catch( function (e) {
             done();
-        })
-    })
+        });
+    });
 });
 

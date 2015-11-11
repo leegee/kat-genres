@@ -21,7 +21,7 @@ client.indices.delete({
             "genres": ['test','foo'],
             "torrent_info_url": 'http://foo.com'
         }
-    })
+    });
 }).then( function (err, resp, respcode) {
     console.log(err, resp, respcode);
-})
+});
