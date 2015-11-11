@@ -16,6 +16,7 @@
     "bufferedstream": "^3.1.1",
     "csv": "^0.4.6",
     "csv-parse": "^1.0.0",
+    "elasticsearch": "^9.0.0",
     "es6-promise": "^3.0.2",
     "fibers": "^1.0.7",
     "html-entities": "^1.2.0",
@@ -36,5 +37,8 @@
     "mocha": "^2.3.3",
     "should": "^7.1.1",
     "sinon": "^1.17.2"
+  },
+  "elasticsearch": {
+    "port": "9200"
   }
 }
