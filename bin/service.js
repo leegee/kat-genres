@@ -24,6 +24,7 @@ app.get('/all', function (conn) {
                     [row.torrent_name, row.title,row.genres].join("\t")+"\n"
                 );
             });
+            // db.close();
         }
     });
 });
