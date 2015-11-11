@@ -14,11 +14,15 @@ log4js.replaceConsole();
 
 var db;
 
-before(function () {
+before( function () {
     db = new sqlite3.Database(':memory:');
     db.serialize(function() {
         Torrent.createSchema(db);
     });
+});
+
+after( function () {
+    db.close();
 });
 
 describe('Torrent', function (){
@@ -27,14 +31,6 @@ describe('Torrent', function (){
         should.equal( typeof torrent, "object", "Construted" );
         torrent.should.be.instanceof(Torrent, "Construted class" );
     });
-
-    // it('should get title from KAT HTML', function () {
-    //     var torrent = new Torrent({db:db}, []);
-    //     torrent.torrent_category = 'TV';
-    //     expect( torrent.setTitleFromHTML(
-    //         '<li><a href="/ncis-tv2604/">View all <strong>NCIS</strong> episodes</a></li>'
-    //     )).to.eql(true);
-    // });
 
     it('should get torrent_info_url', function (done){
         this.timeout( 20000 );
