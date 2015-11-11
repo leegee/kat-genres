@@ -8,29 +8,24 @@ var mach = require('mach'),
 
 app.use(mach.logger);
 
-app.get('/', function () {
-    return '<a href="/b">go to b</a>';
-});
-
 app.get('/all', function (conn) {
     var content = conn.response.content = new Stream;
     db.all("SELECT * FROM torrents", function(err, rows) {
-        rows.forEach(function (row) {
-            content.write(
-                [row.torrent_name, row.title,row.genres].join("\t")+"\n"
-            );
-        });
-        db.close();
+        if (err){
+            content.write( JSON.stringify({error:err}) );
+        }
+        else if (rows === null){
+            content.write( JSON.stringify({error:'Table is empty'}) );
+        }
+        else {
+            console.log(rows.length, 'rows');
+            rows.forEach(function (row) {
+                content.write(
+                    [row.torrent_name, row.title,row.genres].join("\t")+"\n"
+                );
+            });
+        }
     });
-});
-
-app.get('/c/:id', function (conn) {
-    return JSON.stringify({
-        method: conn.method,
-        location: conn.location,
-        headers: conn.request.headers,
-        params: conn.params
-    }, null, 2);
 });
 
 mach.serve(app);
