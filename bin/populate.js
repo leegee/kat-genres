@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /** e2e.t — end-to-end test */
 /* globals describe, it, before, after */
 
