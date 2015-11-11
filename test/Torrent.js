@@ -32,10 +32,23 @@ describe('Torrent', function (){
         torrent.should.be.instanceof(Torrent, "Construted class" );
     });
 
-    it('should get torrent_info_url', function (done){
+    it('should get info for TV', function (done){
         this.timeout( 20000 );
         var torrent = new Torrent({db:db}, ['TestID', 'NCIS S01E01', 'TV']);
-        torrent.saveWithMetaInfo().then( function() {
+        torrent.saveWithMetaInfo().then( function (res) {
+            res.should.contain( 'Drama', 'Action (fiction)' );
+            done();
+        }).catch( function (e){
+            console.error(e);
+            done();
+        });
+    });
+
+    it('should get info for Movies', function (done){
+        this.timeout( 20000 );
+        var torrent = new Torrent({db:db}, ['TestID2', 'Jaws', 'Movies']);
+        torrent.saveWithMetaInfo().then( function (res) {
+            res.should.contain( 'Drama', 'Action (fiction)' );
             done();
         }).catch( function (e){
             console.error(e);
