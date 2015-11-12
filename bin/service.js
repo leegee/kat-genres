@@ -12,30 +12,21 @@ var es = new Elasticsearch();
 app.use(mach.logger);
 
 app.get('/genres', function (conn) {
-    return es.distinctGenres().then(function (json) {
+    return es.genreList().then( function (json) {
         conn.json(200, json.aggregations);
     });
 });
 
 app.get('/all', function (conn) {
-    var content = conn.response.content = new Stream();
-    db.all("SELECT * FROM torrents", function(err, rows) {
-        if (err){
-            content.write( JSON.stringify({error:err}) );
-        }
-        else if (rows === null){
-            content.write( JSON.stringify({error:'Table is empty'}) );
-        }
-        else {
-            console.log(rows.length, 'rows');
-            rows.forEach(function (row) {
-                content.write(
-                    [row.torrent_name, row.title,row.genres].join("\t")+"\n"
-                );
-            });
-            // db.close();
-        }
-    });
+    return es.all().then( function (json) {
+        conn.json(200, json );
+    })
+});
+
+app.get('/search/:term', function (conn) {
+    return es.all( conn.params.term).then( function (json) {
+        conn.json(200, json );
+    })
 });
 
 mach.serve(app);
