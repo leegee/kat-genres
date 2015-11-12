@@ -39,6 +39,7 @@
     "sinon": "^1.17.2"
   },
   "elasticsearch": {
+    "host": "localhost",
     "port": "9200"
   }
 }

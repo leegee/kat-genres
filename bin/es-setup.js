@@ -1,11 +1,4 @@
-var elasticsearch = require('elasticsearch');
-var config        = require('../package.json');
-
-var client = new elasticsearch.Client({
-    host: 'localhost:'+config.elasticsearch.port,
-    log: 'trace',
-    apiVersion: "2.1"
-});
+var client = require('lib/Elasticsearch.js');
 
 client.indices.delete({
     index: "torrents",
