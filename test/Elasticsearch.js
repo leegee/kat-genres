@@ -10,6 +10,10 @@ var chai          = require('chai'),
 
 log4js.replaceConsole();
 
+// before( function (done){
+//     Install test fixtures
+// });
+
 describe('Elasticsearch class', function (){
     it( 'is as expected', function () {
         var es = new Elasticsearch();
@@ -30,6 +34,29 @@ describe('Elasticsearch class', function (){
         });
     });
 
+    it( 'search with term', function (done) {
+        new Elasticsearch().search('Sci-fi').then( function (res){
+            var hits = res.hits.hits;
+            should.equal(typeof hits, 'object', 'hits list');
+            hits.should.be.instanceof(Array, 'hits list');
+            hits.should.have.length.gt(0);
+            done();
+        }).catch( function (e) {
+            done();
+        });
+    });
+
+    it( 'search without term', function (done) {
+        new Elasticsearch().search().then( function (res){
+            var hits = res.hits.hits;
+            should.equal(typeof hits, 'object', 'hits list');
+            hits.should.be.instanceof(Array, 'hits list');
+            hits.should.have.length.gt(0);
+            done();
+        }).catch( function (e) {
+            done();
+        });
+    });
 
 });
 

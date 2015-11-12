@@ -20,13 +20,13 @@ app.get('/genres', function (conn) {
 app.get('/all', function (conn) {
     return es.all().then( function (json) {
         conn.json(200, json );
-    })
+    });
 });
 
 app.get('/search/:term', function (conn) {
     return es.all( conn.params.term).then( function (json) {
         conn.json(200, json );
-    })
+    });
 });
 
 mach.serve(app);
