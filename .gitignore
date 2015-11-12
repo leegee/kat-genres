@@ -1,3 +1,4 @@
 node_modules/
 npm-debug.log
 elasticsearch-2.0.0/
+public/js/bower/

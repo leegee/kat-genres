@@ -1,0 +1,30 @@
+{
+  "name": "kat-genres",
+  "description": "Add genres to KAT",
+  "main": "/public/js/app.js",
+  "authors": [
+    "Lee Goddard"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "commonjs",
+    "torrent",
+    "kat"
+  ],
+  "homepage": "https://github.com/leegee/kat-genres",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/js/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "~1.4.7",
+    "angularAMD": "~0.2.1",
+    "ng-load": "~1.0.2"
+  }
+}
