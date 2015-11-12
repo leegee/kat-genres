@@ -3,10 +3,19 @@ var mach = require('mach'),
     Torrent = require('../lib/Torrent.js'),
     sqlite3 = require('sqlite3'),
     Stream = require('bufferedstream'),
-    db = new sqlite3.Database('torrents.db')
+    db = new sqlite3.Database('torrents.db'),
+    Elasticsearch = require('../lib/Elasticsearch.js')
 ;
 
+var es = new Elasticsearch();
+
 app.use(mach.logger);
+
+app.get('/genres', function (conn) {
+    return es.distinctGenres().then(function (json) {
+        conn.json(200, json.aggregations);
+    });
+});
 
 app.get('/all', function (conn) {
     var content = conn.response.content = new Stream();
