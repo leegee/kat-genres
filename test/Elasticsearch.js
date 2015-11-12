@@ -18,10 +18,11 @@ describe('Elasticsearch class', function (){
     });
 
     it( 'lists generes', function (done) {
-        new Elasticsearch().genreList('Sci-fi').then( function (genres){
+        new Elasticsearch().genreList('Sci-fi').then( function (res){
+            var genres = res.aggregations.genres.buckets;
             should.equal(typeof genres, 'object', 'genres list');
             genres.should.be.instanceof(Array, 'genres list');
-            genres.should.have.length(3);
+            genres.should.have.length.gt(3);
             genres.should.include('Thriller','Drama','Adventure');
             done();
         }).catch( function (e) {
