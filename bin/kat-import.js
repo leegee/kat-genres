@@ -8,18 +8,14 @@ var path          = require('path'),
     Importer      = require('../lib/Importer.js'),
     Torrent       = require('../lib/Torrent.js'),
     sqlite3       = require('sqlite3').verbose(),
-    elasticsearch = require('elasticsearch'),
+    elasticsearch = require('../lib/Elasticsearch.js'),
     config        = require('../package.json')
 ;
 
 log4js.replaceConsole();
 var path = 'torrents.db';
 var db = new sqlite3.Database( path );
-var client = new elasticsearch.Client({
-    host: 'localhost:'+config.elasticsearch.port,
-    log: 'trace',
-    apiVersion: "2.1"
-});
+var es = new Elasticsearch();
 
 db.serialize(function() {
     Torrent.createSchema(db);
@@ -27,7 +23,7 @@ db.serialize(function() {
 var importer = new Importer({
     db: db,
     katCsv: 'full_torrents.csv',
-    elasticsearch: client
+    elasticsearch: es
 });
 importer.loadTorrentsFromCSV( function (){
     console.info( path.resolve(path) );

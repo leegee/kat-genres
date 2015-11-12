@@ -10,9 +10,21 @@ var chai          = require('chai'),
 
 log4js.replaceConsole();
 
-// before( function (done){
-//     Install test fixtures
-// });
+var elasticsearch;
+
+before( function (done){
+    elasticsearch = new Elasticsearch({
+        index: 'test'
+    });
+    elasticsearch.setup();
+    elasticsearch.index({
+        "id":     "1",
+        "title":  "Test",
+        "genres": ['test','foo'],
+    }).then( function (err, resp, respcode) {
+        done();
+    });
+});
 
 describe('Elasticsearch class', function (){
     it( 'is as expected', function () {
