@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/** e2e.t — end-to-end test */
+/** Import from KAT dump */
 /* globals describe, it, before, after */
 
 "use strict";
@@ -8,13 +8,11 @@ var path          = require('path'),
     Importer      = require('../lib/Importer.js'),
     Torrent       = require('../lib/Torrent.js'),
     sqlite3       = require('sqlite3').verbose(),
-    elasticsearch = require('../lib/Elasticsearch.js'),
-    config        = require('../package.json')
+    Elasticsearch = require('../lib/Elasticsearch.js')
 ;
 
 log4js.replaceConsole();
-var path = 'torrents.db';
-var db = new sqlite3.Database( path );
+var db = new sqlite3.Database( 'torrents.db' );
 var es = new Elasticsearch();
 
 db.serialize(function() {
