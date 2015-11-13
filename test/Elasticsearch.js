@@ -10,12 +10,14 @@ var chai          = require('chai'),
 
 log4js.replaceConsole();
 
-var elasticsearch;
+var elasticsearch,
+    TEST_INDEX_NAME = 'test'
+;
 
 before( function (done){
     this.timeout(10000);
     elasticsearch = new Elasticsearch({
-        index: 'test'
+        index: TEST_INDEX_NAME
     });
     elasticsearch.setup()
     .then( function (){
@@ -24,6 +26,15 @@ before( function (done){
             "title":  "Test",
             "genres": ['test','foo'],
         })
+    }).then( function (err, resp, respcode) {
+        done();
+    });
+});
+
+after( function (done){
+    this.timeout(10000);
+    elasticsearch.client.indices.delete({
+        index: TEST_INDEX_NAME
     }).then( function (err, resp, respcode) {
         done();
     });
