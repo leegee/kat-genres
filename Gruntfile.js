@@ -47,16 +47,15 @@ module.exports = function(grunt) {
         connect: {
             server: {
                 options: {
-                    port: config.httpRestServer.port,
+                    port: config.staticServer.port,
                     base: 'public',
                     keepalive: true,
-                    debug: true,
+                    debug: true
                     middleware: connectCORDSmiddleware
                 }
             }
         }
     });
-
 
     grunt.registerTask('elasticsearch-start', 'Start Elasticsearch', function () {
         if (esChild === null) {

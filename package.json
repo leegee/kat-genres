@@ -52,6 +52,10 @@
   },
   "httpRestServer": {
     "host": "localhost",
+    "port": "5050"
+  },
+  "staticServer": {
+    "host": "localhost",
     "port": "8080"
   }
 }

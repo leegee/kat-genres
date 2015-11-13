@@ -1,13 +1,12 @@
-var mach = require('mach'),
-    app = mach.stack(),
-    Torrent = require('../lib/Torrent.js'),
-    sqlite3 = require('sqlite3'),
-    Stream = require('bufferedstream'),
-    db = new sqlite3.Database('torrents.db'),
-    Elasticsearch = require('../lib/Elasticsearch.js')
-;
+#!/usr/bin/env node
 
-var es = new Elasticsearch();
+var Elasticsearch = require('../lib/Elasticsearch.js'),
+    Torrent = require('../lib/Torrent.js'),
+    Stream  = require('bufferedstream'),
+    mach    = require('mach'),
+    app     = mach.stack(),
+    es      = new Elasticsearch()
+;
 
 app.use(mach.logger);
 
@@ -17,14 +16,14 @@ app.get('/genres', function (conn) {
     });
 });
 
-app.get('/all', function (conn) {
-    return es.all().then( function (json) {
+app.get('/search', function (conn) {
+    return es.search().then( function (json) {
         conn.json(200, json );
     });
 });
 
 app.get('/search/:term', function (conn) {
-    return es.all( conn.params.term).then( function (json) {
+    return es.search( conn.params.term ).then( function (json) {
         conn.json(200, json );
     });
 });

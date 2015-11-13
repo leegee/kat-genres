@@ -18,12 +18,16 @@ var es = new Elasticsearch();
 db.serialize(function() {
     Torrent.createSchema(db);
 });
-var importer = new Importer({
-    db: db,
-    katCsv: 'full_torrents.csv',
-    elasticsearch: es
-});
-importer.loadTorrentsFromCSV( function (){
-    console.info( path.resolve(path) );
+
+es.setup().then( function (){
+
+    var importer = new Importer({
+        db: db,
+        katCsv: 'full_torrents.csv',
+        elasticsearch: es
+    });
+    importer.loadTorrentsFromCSV( function (){
+        console.info( path.resolve(path) );
+    });
 });
 

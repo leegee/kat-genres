@@ -25,7 +25,7 @@ before( function (done){
             "id":     "1",
             "title":  "Test",
             "genres": ['test','foo'],
-        })
+        });
     }).then( function (err, resp, respcode) {
         done();
     });
