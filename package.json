@@ -41,12 +41,14 @@
     "mocha": "^2.3.3",
     "serve-static": "^1.10.0",
     "should": "^7.1.1",
-    "sinon": "^1.17.2"
+    "sinon": "^1.17.2",
+    "sleep": "^3.0.0"
   },
   "elasticsearch": {
     "host": "localhost",
     "port": "9200",
-    "index": "torrents"
+    "index": "torrents",
+    "bin": "elasticsearch-2.0.0/bin/elasticsearch"
   },
   "httpRestServer": {
     "host": "localhost",
