@@ -4,6 +4,7 @@ module.exports = function(grunt) {
         child_process = require('child_process'),
         config        = require('./package.json'),
         sleep         = require('sleep'),
+        fs            = require('fs'),
         esChild       = null
      ;
 
@@ -12,12 +13,21 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-browserify2');
 
-    var connectCORDSmiddleware = function (connect) {
+    var middleware = function (connect) {
         return [
             connect().use('/', function (req, res, next) {
                 res.setHeader('Access-Control-Allow-Origin', '*');
                 res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
                 res.setHeader('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,POST,DELETE,HEAD,TRACE');
+                return next();
+            }),
+            connect().use( function (req, res, next) {
+                if (req.url.match(/^\/+nodelib/)){
+                    var path = __dirname + req.url.replace(/nodelib/, 'lib');
+                    if (fs.statSync( path ).isFile()){
+                        fs.createReadStream( path ).pipe(res);
+                    }
+                }
                 return next();
             }),
             serveStatic(require('path').resolve('public'))
@@ -50,8 +60,8 @@ module.exports = function(grunt) {
                     port: config.staticServer.port,
                     base: 'public',
                     keepalive: true,
-                    debug: true
-                    middleware: connectCORDSmiddleware
+                    debug: true,
+                    middleware: middleware
                 }
             }
         }
