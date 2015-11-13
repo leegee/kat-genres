@@ -13,14 +13,17 @@ log4js.replaceConsole();
 var elasticsearch;
 
 before( function (done){
+    this.timeout(10000);
     elasticsearch = new Elasticsearch({
         index: 'test'
     });
-    elasticsearch.setup();
-    elasticsearch.index({
-        "id":     "1",
-        "title":  "Test",
-        "genres": ['test','foo'],
+    elasticsearch.setup()
+    .then( function (){
+        elasticsearch.index({
+            "id":     "1",
+            "title":  "Test",
+            "genres": ['test','foo'],
+        })
     }).then( function (err, resp, respcode) {
         done();
     });
