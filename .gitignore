@@ -1,4 +1,6 @@
 node_modules/
 npm-debug.log
 elasticsearch-2.0.0/
-public/js/bower/
+public/bower/
+torrents.db
+full_torrents.csv

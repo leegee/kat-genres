@@ -2,10 +2,25 @@
 <html lang="en">
     <head>
         <title>KAT Genre Search</title>
-        <script data-main="js/main.js" src="js/bower/requirejs/require.js"></script>
+        <script data-main="index.js" src="bower/requirejs/require.js"></script>
+
+        <script type='html/template' id="template-list">
+            <h2>Search Genres<h2>
+            <form id='genre-search' action='backbone'>
+                <label>Search</label>
+                <input type='text' id='terms' value='<%= terms %>'>
+                <input type='submit' id='search_button' value='Search'>
+            </form>
+            <ul class='torrents'>
+                <% _.each(collection, function (model){ %>
+                <li>
+                <a href='<%= model.get("link") %>'><%= model.get('name') %></a>
+                </li>
+                <% }); %>
+            </ul>
+        </script>
+
     </head>
 
-    <body>
-        <div class="container" ng-view></div>
-     </body>
+    <body id='app-container'></body>
 </html>

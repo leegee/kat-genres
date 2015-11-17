@@ -1,7 +1,7 @@
 {
   "name": "kat-genres",
   "description": "Add genres to KAT",
-  "main": "/public/js/app.js",
+  "main": "/lib/app.js",
   "authors": [
     "Lee Goddard"
   ],
@@ -17,14 +17,14 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
-    "public/js/bower",
+    "bower",
     "test",
     "tests"
   ],
   "dependencies": {
-    "angular-route": "~1.4.7",
-    "angularAMD": "~0.2.1",
-    "ng-load": "~1.0.2"
+    "underscore": "~1.8.3",
+    "backbone": "~1.2.3",
+    "jquery": "~2.1.4",
+    "elasticsearch": "~9.0.0"
   }
 }

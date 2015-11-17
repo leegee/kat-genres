@@ -2,10 +2,12 @@
   "name": "kat-genres",
   "version": "1.0.0",
   "description": "Add genres to KAT",
-  "main": "index.js",
+  "main": "bin/kat-import.js",
   "repository": "https://github.com/leegee/kat-genres",
   "directories": {
-    "test": "test"
+    "test": "test",
+    "bin" : "bin",
+    "lib" : "lib"
   },
   "scripts": {
     "test": "grunt test"
