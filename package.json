@@ -6,14 +6,14 @@
   "repository": "https://github.com/leegee/kat-genres",
   "directories": {
     "test": "test",
-    "bin" : "bin",
-    "lib" : "lib"
+    "bin": "bin",
+    "lib": "lib"
   },
   "scripts": {
-    "test"     : "grunt test",
-    "setup"    : "node ./bin/setup-es.js",
-    "populate" : "node ./bin/kat-import.js",
-    "serve"    : "grunt connect"
+    "test": "grunt test",
+    "setup": "node ./bin/setup-es.js",
+    "populate": "node ./bin/kat-import.js",
+    "serve": "grunt connect"
   },
   "author": "Lee Goddard",
   "license": "ISC",
@@ -41,6 +41,7 @@
     "grunt-cli": "^0.1.13",
     "grunt-contrib-connect": "^0.11.2",
     "grunt-contrib-jshint": "^0.11.3",
+    "grunt-mocha-phantomjs": "^2.0.0",
     "grunt-mocha-test": "^0.12.7",
     "log4js": "leegee/log4js-node",
     "mocha": "^2.3.3",

@@ -1,3 +1,5 @@
+/* Set TEST_ES in the evn to start/stop an ES instance */
+
 module.exports = function(grunt) {
     var Path          = require('path'),
         serveStatic   = require('serve-static'),
@@ -12,6 +14,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-browserify2');
+    grunt.loadNpmTasks('grunt-mocha-phantomjs');
 
     var middleware = function (connect, options, middlewares) {
         middlewares.unshift( function (req, res, next) {
@@ -21,7 +24,7 @@ module.exports = function(grunt) {
             return next();
         });
         return middlewares;
-    }
+    };
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -49,15 +52,27 @@ module.exports = function(grunt) {
                     // base:  __dirname+'public/',
                     port: config.staticServer.port,
                     keepalive: true,
-                    debug: true,
+                    debug: true
+                    // middleware: middleware
+                }
+            },
+            mocha: {
+                options: {
+                    // base:  __dirname+'public/',
+                    port: config.staticServer.port,
+                    debug: true
                     // middleware: middleware
                 }
             }
+        },
+
+        mocha_phantomjs: {
+            urls: ['http://localhost/' + config.staticServer.port +'/test-phantom/**/*.html']
         }
     });
 
     grunt.registerTask('elasticsearch-start', 'Start Elasticsearch', function () {
-        if (esChild === null) {
+        if (process.env.TEST_ES && esChild === null) {
             grunt.log.writeln('Attempting elasticsearch start via '+config.elasticsearch.bin);
             esChild = child_process.spawn( config.elasticsearch.bin );
             esChild.on('close', function (code, signal) {
@@ -70,18 +85,28 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('elasticsearch-stop', 'Start Elasticsearch', function () {
-        if (esChild !== null) {
+        if (process.env.TEST_ES && esChild !== null) {
             esChild.kill('SIGTERM');
         }
     });
 
-    grunt.registerTask('default', ['jshint', 'mochaTest']);
+    grunt.registerTask('test-phantom', [
+        'jshint',
+        'elasticsearch-start',
+        'connect:mocha',
+        'mocha_phantomjs',
+        'elasticsearch-stop'
+    ]);
+
     grunt.registerTask('test', [
         'jshint',
         'elasticsearch-start',
         'mochaTest',
         'elasticsearch-stop'
     ]);
+
+    grunt.registerTask('default', ['jshint', 'mochaTest']);
+
 };
 
 
