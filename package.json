@@ -10,7 +10,10 @@
     "lib" : "lib"
   },
   "scripts": {
-    "test": "grunt test"
+    "test"     : "grunt test",
+    "setup"    : "node ./bin/setup-es.js",
+    "populate" : "node ./bin/kat-import.js",
+    "serve"    : "grunt connect"
   },
   "author": "Lee Goddard",
   "license": "ISC",

@@ -37,23 +37,33 @@
         },
 
         fetch: function (terms) {
-            var self = this;
-            var body = terms === null ? {
-                aggs : {
-                    genres: {
-                        terms : { field: "genres" }
+            var self = this,
+                body, sortField;
+            if (terms === null){
+                sortField = '';
+                body = {
+                    aggs : {
+                        genres: {
+                            terms : { field: "genres" }
+                        }
                     }
-                }
-            } : {
-                query: {
-                    wildcard: {
-                        _all : { value : terms }
+                };
+            }
+            else {
+                sortField = 'title';
+                body = {
+                    query: {
+                        wildcard: {
+                            _all : { value : terms }
+                        }
                     }
                 }
             };
+
             return this.client.search({
-                index: 'torrents', // this.options.index,
-                body: body
+                index : 'torrents', // this.options.index,
+                body  : body,
+                sort  : sortField
             }).then( function (res) {
                 return self.parse(res);
             })

@@ -4,6 +4,20 @@
         <title>KAT Genre Search</title>
         <script data-main="index.js" src="bower/requirejs/require.js"></script>
 
+        <style>
+            li .genres span {
+                font-weight: 100;
+                font-family: sans;
+                font-size: small;
+                text-transform: lowercase;
+                font-variant: small-caps;
+                border: 1pt dotted gray;
+                padding: 2pt;
+                vertical-align: middle;
+                margin-right: 2pt;
+            }
+        </style>
+
         <script type='html/template' id="template-list">
             <h2>Search Genres<h2>
             <form id='genre-search' action='backbone'>
@@ -13,8 +27,15 @@
             </form>
             <ul class='torrents'>
                 <% _.each(collection, function (model){ %>
-                <li>
-                <a href='<%= model.get("link") %>'><%= model.get('name') %></a>
+                    <li>
+                    <% if (model.has('genres')){ %>
+                        <span class='genres'>
+                            <% model.get('genres').forEach( function (genre){ %>
+                                <span class='<%= genre %>'><%= genre %></span>
+                            <% }); %>
+                        </span>
+                    <% } %>
+                    <a href='<%= model.get("link") %>'><%= model.get('name') %></a>
                 </li>
                 <% }); %>
             </ul>
