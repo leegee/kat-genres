@@ -1,6 +1,6 @@
  define( [
     'backbone', 'elasticsearch', 'jQuery',
-    'lib/models/Genre.js', 'lib/models/Torrent.js'
+    'lib/models/Genre', 'lib/models/Torrent'
 ], function (
     Backbone, Elasticsearch, jQuery,
     Genre, Torrent

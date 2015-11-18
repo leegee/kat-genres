@@ -1,5 +1,5 @@
 define( [
-    'backbone','lib/views/Search.js'
+    'backbone','lib/views/Search'
 ], function (
     Backbone, ViewSearch
 ){
@@ -11,8 +11,8 @@ define( [
         }
     });
 
-    var showing;
-    var viewSearch = new ViewSearch();
+    var showing,
+        viewSearch = new ViewSearch();
 
     function Runner (){
         var router = new AppRouter();

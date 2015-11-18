@@ -1,5 +1,5 @@
  define( [
-    'backbone', 'jQuery', 'lib/collections/Torrent.js'
+    'backbone', 'jQuery', 'lib/collections/Torrent'
 ], function (
     Backbone, jQuery, Collection
 ){

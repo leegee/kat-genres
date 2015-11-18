@@ -7,47 +7,36 @@
 
     <script src="../public/bower/requirejs/require.js"></script>
     <script>
-        require.config({
-            baseUrl: '/public/',
-            paths: {
-                mocha: '../node_modules/mocha/mocha',
-                chai:  '../node_modules/chai/chai',
-                jQuery: '../public/bower/jquery/dist/jquery.min'
-            },
-            shim: {
-                mocha:  { exports: 'mocha' },
-                cha:    { exports: 'chai'},
-                jQuery: { exports: 'jQuery' }
-            },
-        });
+        var baseURLpath = '/public';
 
-        requirejs([
-            'mocha', 'chai', 'tests.js', 'jQuery'
-        ], function (
-            mocha, chai, Tests, jQuery
-        ) {
-            'use strict';
-            mocha.ui('bdd');
-            Tests();
-            mocha.run();
+        require(['../public/Config.js'], function (Config ) {
+            require.config({
+                baseUrl: '/public/',
+                paths: {
+                    mocha: '../node_modules/mocha/mocha',
+                    chai:  '../node_modules/chai/chai'
+                },
+                shim: {
+                    mocha:  { exports: 'mocha' },
+                    cha:    { exports: 'chai'},
+                },
+            });
+            requirejs([
+                'mocha', 'chai', 'tests.js', 'jQuery'
+            ], function (
+                mocha, chai, Tests, jQuery
+            ) {
+                'use strict';
+                mocha.ui('bdd');
+                Tests( baseURLpath );
+                mocha.run();
+            });
         });
     </script>
 
   </head>
   <body>
-      <div id="mocha"><!-- Required for browser reporter --></div>
-      <iframe id='test-document'></iframe>
-      <!--
-      <script src="../node_modules/mocha/mocha.js" type="text/javascript" charset="utf-8"></script>
-      <script src="../node_modules/chai/chai.js" type="text/javascript" charset="utf-8"></script>
-      <script type="text/javascript" charset="utf-8">
-          mocha.ui('bdd');
-          expect = chai.expect;
-      </script>
-      <script src="test.js" charset="utf-8"></script>
-      <script type="text/javascript" charset="utf-8">
-        mocha.run();
-      </script>
-    -->
+      <div id="mocha"><!-- Displays test results --></div>
+      <iframe id='test-document'><!-- Testing whatever is loaded here --></iframe>
   </body>
 </html>

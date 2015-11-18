@@ -1,42 +1,47 @@
 define([
-    'mocha', 'chai', 'jQuery'
+   'mocha', 'chai', 'jQuery', '../public/lib/Router.js'
 ], function (
-    mocha, chai, jQuery
+    mocha, chai, jQuery, Router
 ) {
-
+    'use strict';
     var expect       = chai.expect,
-        testDocument = null;
+        testDocument = null,
+        testWindow   = null;
 
-    return function () {
+    jQuery(document).ready( function () {
+        new Router().start();
+    });
 
-        function loadURL (path, done) {
-            var iframe = jQuery('#test-document');
-            iframe.load( function () {
-                testDocument = iframe.get(0).contentWindow.document;
-                done();
-            })
-            iframe.attr('src', 'http://localhost:8080');
-        }
-
-        describe('GUI Tests', function () {
-            before('load /', function (done){
-                loadURL('/', done);
-            });
-
-            describe('should pass', function () {
-                it('should equal 2', function () {
-                    expect(1 + 1).to.equal(2);
-                });
-
-                it('should not equal 3', function () {
-                    expect(1 + 1).to.not.equal(3);
-                });
-
-                it('should equal 3', function () {
-                    expect(1 + 1 + 1).to.equal(3);
-                });
-            });
-        });
-
-    };
+    return function () {alert('oh')}
 });
+
+
+//     return function (baseURLpath) {
+
+//         function loadURL (path, done) {
+//             var iframe = jQuery('#test-document');
+//             iframe.ready( function () {
+//                 testWindow   = iframe.get(0).contentWindow.document;;
+//                 testDocument = testWindow.document;
+//                 done();
+//             })
+//             iframe.attr('src', 'http://localhost:8080' + baseURLpath + path);
+//         }
+
+//         describe('GUI Tests', function () {
+
+//             before('load /', function (done){
+//                 loadURL('/', done);
+//             });
+
+//             describe('initially lists genres', function () {
+//                 it('should contain a list of torrents', function () {
+//                     console.log( '>>',
+//                         jQuery('ul.torrents')
+//                     );
+//                 });
+//             });
+
+//         });
+//     };
+// });
