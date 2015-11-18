@@ -12,21 +12,22 @@
             paths: {
                 mocha: '../node_modules/mocha/mocha',
                 chai:  '../node_modules/chai/chai',
+                jQuery: '../public/bower/jquery/dist/jquery.min'
             },
             shim: {
-                mocha: { exports: 'mocha' },
-                cha:   { exports: 'chai'}
+                mocha:  { exports: 'mocha' },
+                cha:    { exports: 'chai'},
+                jQuery: { exports: 'jQuery' }
             },
         });
 
         requirejs([
-            'mocha', 'chai', 'tests.js'
+            'mocha', 'chai', 'tests.js', 'jQuery'
         ], function (
-            mocha, chai, Tests
+            mocha, chai, Tests, jQuery
         ) {
             'use strict';
             mocha.ui('bdd');
-            console.log(Tests);
             Tests();
             mocha.run();
         });
@@ -35,6 +36,7 @@
   </head>
   <body>
       <div id="mocha"><!-- Required for browser reporter --></div>
+      <iframe id='test-document'></iframe>
       <!--
       <script src="../node_modules/mocha/mocha.js" type="text/javascript" charset="utf-8"></script>
       <script src="../node_modules/chai/chai.js" type="text/javascript" charset="utf-8"></script>
