@@ -61,7 +61,7 @@ describe('KAT import', function (){
             this.timeout( 10000 );
             var importer = new Importer({db:db});
             should.equal( typeof importer.download, 'function', 'method');
-            importer.download( 'http://lee/dailydump.txt.gz', function () {
+            importer.download( 'http://lee/dailydump.txt.gz').then( function () {
                 it('has size', function (){
                     var stats = fs.statSync( importer.options.katCsv );
                     stats.size.should.be.gt(0);

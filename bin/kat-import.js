@@ -14,18 +14,19 @@ var path          = require('path'),
 log4js.replaceConsole();
 var db = new sqlite3.Database( 'torrents.db' );
 var es = new Elasticsearch();
+var importer = new Importer({
+    db: db,
+    katCsv: 'full_torrents.csv',
+    elasticsearch: es
+});
 
 db.serialize(function() {
     Torrent.createSchema(db);
 });
 
 es.setup().then( function (){
-
-    var importer = new Importer({
-        db: db,
-        katCsv: 'full_torrents.csv',
-        elasticsearch: es
-    });
+    importer.download( 'http://lee/dailydump.txt.gz' );
+}).then( function (){
     importer.loadTorrentsFromCSV( function (){
         console.info( path.resolve(path) );
     });
