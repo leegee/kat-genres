@@ -12,7 +12,7 @@ define( [
     });
 
     var showing,
-        viewSearch = new ViewSearch();
+        viewSearch  = new ViewSearch();
 
     function Runner (){
         var router = new AppRouter();

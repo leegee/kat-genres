@@ -4,6 +4,9 @@
     Backbone, jQuery, Collection
 ){
     'use strict';
+
+    var eventRendered = new Event('rendered');
+
     return Backbone.View.extend({
         tagName:   "section",
         className: "list",
@@ -17,7 +20,6 @@
         },
 
         render: function (esRes) {
-            var self = this;
             esRes = esRes || [];
             if (! jQuery.contains(document, this.$el[0])) {
                 this.$root.append( this.$el );
@@ -25,10 +27,11 @@
             this.$el.empty();
             this.$el.html(
                 this.template({
-                    collection: esRes,
-                    terms: self.terms
+                    collection : esRes,
+                    terms      : this.terms
                 })
             );
+            document.dispatchEvent(eventRendered);
         },
 
         events: {
