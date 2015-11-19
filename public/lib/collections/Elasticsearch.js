@@ -8,7 +8,10 @@
     'use strict';
     return Backbone.Collection.extend({
 
+        indexName: null,
+
         initialize: function () {
+            this.indexName = 'torrents';
             this.client = jQuery.es.Client({
                 hosts: 'localhost:9200'
             });
@@ -73,7 +76,7 @@
             return this.client.search({
                 from  : from,
                 size  : pageSize,
-                index : 'torrents', // this.options.index,
+                index : this.indexName,
                 body  : body,
                 sort  : sortField
             }).then( function (res) {

@@ -25,6 +25,9 @@
                 <input type='text' id='terms' value='<%= terms %>'>
                 <input type='submit' id='search_button' value='Search'>
             </form>
+
+            <p>Page <%= page +1 %> of <%= totalPages %> in <%= took %> ms.</p>
+
             <ul class='torrents'>
                 <% _.each(collection, function (model){ %>
                     <li>
@@ -39,8 +42,6 @@
                 </li>
                 <% }); %>
             </ul>
-            <p>Page <%= page +1 %> of <%= totalPages %>.</p>
-            <p>Took <%= took %> ms.</p>
         </script>
 
     </head>

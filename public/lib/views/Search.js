@@ -1,5 +1,5 @@
  define( [
-    'backbone', 'jQuery', 'lib/collections/Torrent'
+    'backbone', 'jQuery', 'lib/collections/Elasticsearch'
 ], function (
     Backbone, jQuery, Collection
 ){
@@ -8,12 +8,12 @@
     var eventRendered = new Event('rendered');
 
     return Backbone.View.extend({
-        tagName:   "section",
-        className: "list",
-        collection: null,
-        terms: '',
-        page: 0,
-        pageSize: 20,
+        tagName    :   "section",
+        className  : "list",
+        collection : null,
+        terms      : '',
+        page       : 0,
+        pageSize   : 20,
 
         initialize: function () {
             this.collection = new Collection();
