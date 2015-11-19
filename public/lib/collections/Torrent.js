@@ -8,6 +8,8 @@
     'use strict';
     return Backbone.Collection.extend({
 
+        pageSize: 20,
+
         initialize: function () {
             this.client = jQuery.es.Client({
                 hosts: 'localhost:9200'
@@ -36,9 +38,12 @@
             return rv;
         },
 
-        fetch: function (terms) {
+        fetch: function (terms, page) {
             var self = this,
-                body, sortField;
+                body,
+                sortField,
+                from = 0;
+
             if (terms === null){
                 sortField = '';
                 body = {
@@ -50,6 +55,9 @@
                 };
             }
             else {
+                if (typeof page !== 'undefined' ){
+                    from = this.pageSize * page-1;
+                }
                 sortField = 'title';
                 body = {
                     query: {
@@ -61,6 +69,8 @@
             };
 
             return this.client.search({
+                from  : from,
+                size  : this.pageSize,
                 index : 'torrents', // this.options.index,
                 body  : body,
                 sort  : sortField

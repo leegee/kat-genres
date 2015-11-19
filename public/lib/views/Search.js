@@ -47,10 +47,10 @@
             );
         },
 
-        search: function (terms) {
+        search: function (terms, page) {
             var self = this;
             this.terms = terms;
-            this.collection.fetch(terms).then( function (res){
+            this.collection.fetch(terms, page).then( function (res){
                 self.render(res);
             } );
         }

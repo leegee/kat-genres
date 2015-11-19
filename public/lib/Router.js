@@ -6,8 +6,8 @@ define( [
     'use strict';
     var AppRouter = Backbone.Router.extend({
         routes: {
-            "search(/:terms)" : "search",
-            "*default"        : "search"
+            "search(/:terms)(/:page)" : "search",
+            "*default"                : "search"
         }
     });
 
@@ -17,10 +17,9 @@ define( [
     function Runner (){
         var router = new AppRouter();
 
-        router.on('route:search', function (term) {
+        router.on('route:search', function (term, page) {
             // if (showing) showing.hide();
-            console.info("Route:search", term);
-            viewSearch.search(term);
+            viewSearch.search(term, page);
             showing = viewSearch;
         });
     }
