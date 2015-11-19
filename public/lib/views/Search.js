@@ -12,6 +12,8 @@
         className: "list",
         collection: null,
         terms: '',
+        page: 0,
+        pageSize: 20,
 
         initialize: function () {
             this.collection = new Collection();
@@ -27,8 +29,11 @@
             this.$el.empty();
             this.$el.html(
                 this.template({
-                    collection : esRes,
-                    terms      : this.terms
+                    collection : esRes.hits,
+                    terms      : this.terms,
+                    page       : this.page,
+                    totalPages : esRes.totalHits / this.pageSize,
+                    took       : esRes.took
                 })
             );
             document.dispatchEvent(eventRendered);
@@ -50,7 +55,8 @@
         search: function (terms, page) {
             var self = this;
             this.terms = terms;
-            this.collection.fetch(terms, page).then( function (res){
+            this.page  = page;
+            this.collection.fetch(this.terms, this.pageSize, this.page).then( function (res){
                 self.render(res);
             } );
         }

@@ -19,7 +19,7 @@
         </style>
 
         <script type='html/template' id="template-list">
-            <h2>Search Genres<h2>
+            <h2>Search Genres</h2>
             <form id='genre-search' action='backbone'>
                 <label>Search</label>
                 <input type='text' id='terms' value='<%= terms %>'>
@@ -39,6 +39,8 @@
                 </li>
                 <% }); %>
             </ul>
+            <p>Page <%= page +1 %> of <%= totalPages %>.</p>
+            <p>Took <%= took %> ms.</p>
         </script>
 
     </head>

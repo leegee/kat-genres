@@ -8,8 +8,6 @@
     'use strict';
     return Backbone.Collection.extend({
 
-        pageSize: 20,
-
         initialize: function () {
             this.client = jQuery.es.Client({
                 hosts: 'localhost:9200'
@@ -17,10 +15,10 @@
         },
 
         parse: function (res){
-            var rv = [];
+            var hits = [];
             if (res.hasOwnProperty('aggregations')){
                 res.aggregations.genres.buckets.forEach( function (i){
-                    rv.push( new Genre({
+                    hits.push( new Genre({
                         name: i.key,
                         count: i.doc_count
                     }) );
@@ -28,17 +26,21 @@
             }
             else {
                 res.hits.hits.forEach( function (i){
-                    rv.push( new Torrent({
+                    hits.push( new Torrent({
                         name: i._source.title,
                         genres: i._source.genres,
                         link: i._source.torrent_download_url
                     }) );
                 });
             }
-            return rv;
+            return {
+                hits       : hits,
+                took       : res.took,
+                totalHits  : res.hits.total
+            };
         },
 
-        fetch: function (terms, page) {
+        fetch: function (terms, pageSize, page) {
             var self = this,
                 body,
                 sortField,
@@ -56,7 +58,7 @@
             }
             else {
                 if (typeof page !== 'undefined' ){
-                    from = this.pageSize * page-1;
+                    from = pageSize * page-1;
                 }
                 sortField = 'title';
                 body = {
@@ -70,7 +72,7 @@
 
             return this.client.search({
                 from  : from,
-                size  : this.pageSize,
+                size  : pageSize,
                 index : 'torrents', // this.options.index,
                 body  : body,
                 sort  : sortField
