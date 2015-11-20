@@ -28,7 +28,7 @@
 
             <p>Page <%= page +1 %> of <%= totalPages %> in <%= took %> ms.</p>
 
-            <ul class='torrents'>
+            <ul class='torrents' id='results'>
                 <% _.each(collection, function (model){ %>
                     <li>
                     <% if (model.has('genres')){ %>
