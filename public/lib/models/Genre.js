@@ -1,4 +1,4 @@
- define( ['backbone'], function (Backbone){
+ define( ['backbone', '../views/Record.js'], function (Backbone, View){
     'use strict';
     return Backbone.Model.extend({
         defaults: {
@@ -10,6 +10,7 @@
             this.set('link',
                 this.get('link') + this.get('name')
             );
+            this.view = new View({model:this});
         }
     });
 });

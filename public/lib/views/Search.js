@@ -45,6 +45,7 @@
         },
 
         render: function (esRes) {
+            var self = this;
             esRes = esRes || [];
             if (! jQuery.contains(document, this.$el[0])) {
                 this.$root.append( this.$el );
@@ -66,7 +67,6 @@
             }
             document.dispatchEvent(eventRendered);
         }
-
     });
 });
 

@@ -5,10 +5,14 @@
         <script data-main="index.js" src="bower/requirejs/require.js"></script>
 
         <style>
+            li {
+                line-height: 200%;
+            }
             li .genres span {
+                float: right;
+                line-height: 90%;
                 font-weight: 100;
-                font-family: sans;
-                font-size: small;
+                font-size: 8pt;
                 text-transform: lowercase;
                 font-variant: small-caps;
                 border: 1pt dotted gray;
@@ -30,18 +34,22 @@
 
             <ul class='torrents' id='results'>
                 <% _.each(collection, function (model){ %>
-                    <li>
-                    <% if (model.has('genres')){ %>
-                        <span class='genres'>
-                            <% model.get('genres').forEach( function (genre){ %>
-                                <span class='<%= genre %>'><%= genre %></span>
-                            <% }); %>
-                        </span>
-                    <% } %>
-                    <a href='<%= model.get("link") %>'><%= model.get('name') %></a>
-                </li>
+                    <% print( model.view.render() ) %>
                 <% }); %>
             </ul>
+        </script>
+
+        <script type='html/template' id="template-record">
+            <li>
+                <% if (model.has('genres')){ %>
+                    <span class='genres'>
+                        <% model.get('genres').forEach( function (genre){ %>
+                            <span class='<%= genre %>'><%= genre %></span>
+                        <% }); %>
+                    </span>
+                <% } %>
+                <a href='<%= model.get("link") %>'><%= model.get('name') %></a>
+            </li>
         </script>
 
     </head>
