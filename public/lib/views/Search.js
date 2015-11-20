@@ -68,7 +68,7 @@ define( [
 
             this.$resultsEl = jQuery('#results');
 
-            var totalPages = esRes? (esRes.totalHits / this.pageSize) : null;
+            var totalPages = esRes? 1+parseInt(esRes.totalHits / this.pageSize) : null;
 
             // If rendering the first page, repopulate the template
             if (this.page===0){

@@ -17,12 +17,8 @@ var importer = new Importer({
     elasticsearch: es
 });
 
-db.serialize(function() {
-    Torrent.createSchema(db);
-});
-
 es.setup().then( function (){
-    importer.download( 'http://lee/dailydump.txt.gz' );
+    importer.download( 'https://kat.cr/api/get_dump/daily/?userhash=93f8dba00cf1b60bf24ea03ab772dc18' );
 }).then( function (){
     importer.loadTorrentsFromCSV( function (){
     });
