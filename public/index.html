@@ -30,7 +30,9 @@
                 <input type='submit' id='search_button' value='Search'>
             </form>
 
-            <p>Page <%= page +1 %> of <%= totalPages %> in <%= took %> ms.</p>
+            <% if (terms){ %>
+                <p>Page <%= page +1 %> of <%= totalPages %> in <%= took %> ms.</p>
+            <% } %>
 
             <ul class='torrents' id='results'>
                 <%= _.partial('template-results', {collection:collection}) %>

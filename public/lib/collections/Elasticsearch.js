@@ -43,6 +43,7 @@
             };
         },
 
+        // page = 0-based
         fetch: function (terms, pageSize, page) {
             var self = this,
                 body,
@@ -51,6 +52,7 @@
 
             if (terms === null){
                 sortField = '';
+                pageSize = 999;
                 body = {
                     aggs : {
                         genres: {
@@ -59,9 +61,10 @@
                     }
                 };
             }
+
             else {
                 if (typeof page !== 'undefined' ){
-                    from = pageSize * page-1;
+                    from = pageSize * page; // 0-based index
                 }
                 sortField = 'title';
                 body = {

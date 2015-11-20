@@ -83,7 +83,7 @@ define( [
                     })
                 );
 
-                if (this.page < totalPages){
+                if (this.terms && this.page < totalPages){
                     this.$el.append(
                         this.templateMore()
                     );
