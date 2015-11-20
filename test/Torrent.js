@@ -6,7 +6,7 @@ var chai     = require('chai'),
     expect   = chai.expect,
     should   = require('chai').should(),
     log4js   = require('Log4js'),
-    Torrent  = require('../lib/Torrent.js'),
+    Torrent  = require('../lib/Torrent.js')
 ;
 
 log4js.replaceConsole();

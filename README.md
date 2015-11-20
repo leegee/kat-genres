@@ -15,7 +15,7 @@ A work in progess to improve KAT genres for TV shows and films.
 
 * Node apps to import KAT data, gather genres, and populate to Elasticsearch
 * Mach JSON REST middleware to Elasticsearch for testing
-* Backbone app to search
+* Tiny Backbone app to search
 
 # Elasticsearch
 
