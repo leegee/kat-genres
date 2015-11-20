@@ -4,6 +4,7 @@ A work in progess to improve KAT genres for TV shows and films.
 
     npm install --dev
     npm test
+    npm run-script testgui
 
 # APIs
 
