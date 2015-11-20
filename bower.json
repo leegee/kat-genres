@@ -12,7 +12,9 @@
     "kat"
   ],
   "homepage": "https://github.com/leegee/kat-genres",
-  "moduleType": [],
+  "moduleType": [
+    'amd'
+  ],
   "private": true,
   "ignore": [
     "**/.*",
