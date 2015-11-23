@@ -22,7 +22,8 @@ A work in progess to improve KAT genres for TV shows and films.
 
 ES support is trivial but designed to be easy to update.
 
-NB: Enable CORS in `$elasticsearch/config/elasticsearch.yaml`:
+NB: Enable CORS in `$elasticsearch/config/elasticsearch.yaml`
+along the lines of:
 
 ```
 http:
